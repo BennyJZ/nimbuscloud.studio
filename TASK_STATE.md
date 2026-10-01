@@ -36,6 +36,9 @@ commerce backend. **Not headless.** See `DECISIONS.md` for why.
 - [x] `Primary Menu` (id 1383) created and assigned to `primary` + `footer`
 - [x] Homepage verified live: hero, 9 width chips, 3 product cards, size guide
 - [x] Fixed: duplicate product grid on homepage
+- [x] Fixed: empty Cart/Checkout pages (added `page.php`; `index.php` now uses `the_content()`)
+- [x] Added cart/checkout/mobile CSS, covering both classic and block Woo markup
+- [x] Git repo initialized, 2 commits, secret scan clean
 
 ## Product IDs
 
@@ -44,6 +47,26 @@ commerce backend. **Not headless.** See `DECISIONS.md` for why.
 | Milanese Mesh Watch Strap | 12 | `milanese-mesh-watch-strap` | 8 (15–22mm) | NCS-CZ356-MIL |
 | Woven Nylon Watch Strap with Magnetic Clasp | 21 | `woven-nylon-magnetic-watch-strap` | 9 (16–24mm) | NCS-HU591-NYL |
 | Parachute Nylon Watch Strap | 31 | `parachute-nylon-watch-strap` | 2 (20, 22mm) | NCS-MF278-PAR |
+
+## Verification performed (live, 2026-10-01)
+
+| Check | Result |
+|---|---|
+| 3 products appear on shop + homepage | PASS — 3 cards, 3-col grid |
+| Product pages load | PASS — all 3 |
+| Variation selector present | PASS — 8 / 9 / 2 options, `attribute_pa_width` |
+| Variation resolves | PASS — 20mm → variation id 26, SKU → `NCS-HU591-NYL-20` |
+| Invalid combo blocked | PASS — Add to Cart disabled until a width is chosen |
+| Add to Cart | PASS — real Woo cart, header count → 1 |
+| Cart contents | PASS — correct product + `Width: 20mm` + qty controls |
+| Checkout | PASS — Woo block checkout, 10 fields, item carried, "Place Order" |
+| Navigation | PASS — Home/Shop/Cart/About in header + footer |
+| Responsive | PASS — 375 / 768 / 1440px, no horizontal overflow |
+| Console errors | PASS — zero on home, shop, product |
+| Secrets exposed | PASS — git secret scan clean, `dist/` ignored |
+| Direct URLs / refresh | PASS — all routes load directly |
+
+Test cart item was removed afterwards via the Store API, so the cart is empty.
 
 ## Current blockers
 
@@ -54,8 +77,15 @@ commerce backend. **Not headless.** See `DECISIONS.md` for why.
 
 ## Exact next action
 
-Re-upload the theme zip (duplicate-grid fix) and verify on the live product page:
-variation select → price updates → Add to Cart → cart count increments.
+**Milestone 1 is complete and verified.** Waiting on Benny for real prices and product
+images. When prices arrive:
+
+```
+PUT /wp-json/wc/v3/products/<id>/variations/<vid>  { "regular_price": "<price>" }
+```
+(run from a logged-in wp-admin tab so the REST nonce applies)
+
+Then: set images per product, and decide whether to launch the site.
 
 ## Relevant commands
 

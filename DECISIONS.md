@@ -71,6 +71,27 @@ product information. "Milanese Mesh Watch Strap" is right for a web storefront;
 "...15mm 16mm 17mm 18mm..." is an Etsy search artifact, and the widths are already
 expressed properly as variations.
 
+## D9 — page.php is mandatory, and index.php must use the_content()
+
+**Decision:** added `page.php`; made `index.php` use `the_content()` on singular views.
+
+**Why:** found by testing, not by reading. The Cart page rendered **completely empty**
+because the theme had no `page.php`, so WordPress fell back to `index.php`, which only
+printed `the_excerpt()`. Cart, Checkout and My Account are ordinary WordPress pages whose
+markup lives in `the_content()` — an excerpt-only fallback silently blanks all of them.
+
+Lesson for any custom Woo theme: `single-product.php` alone is not enough. Cart and
+checkout are *pages*, and they need a page template.
+
+## D10 — This store serves Woo's BLOCK cart/checkout
+
+**Decision:** styled both classic (`.cart_item`, `table.shop_table`) and block
+(`.wc-block-*`) cart markup.
+
+**Why:** WooCommerce 11 ships the block-based Cart/Checkout by default, so classic
+selectors matched nothing — the first cart verification reported 0 rows even though the
+item was present. Supporting both means the theme survives a switch either way.
+
 ## D8 — One product grid on the homepage, not two
 
 **Decision:** removed the "Picked for you" featured grid.
