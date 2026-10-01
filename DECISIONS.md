@@ -71,6 +71,39 @@ product information. "Milanese Mesh Watch Strap" is right for a web storefront;
 "...15mm 16mm 17mm 18mm..." is an Etsy search artifact, and the widths are already
 expressed properly as variations.
 
+## D11 — Policy pages written to Norwegian/EEA law, with gaps left visible
+
+**Decision:** four pages (privacy, delivery, returns, terms) citing GDPR,
+angrerettloven (14-day withdrawal), forbrukerkjøpsloven (2/5-year complaint right) and
+bokføringsloven § 13 (5-year retention) — with `TO COMPLETE` markers where business facts
+are unknown.
+
+**Why:** a privacy policy naming the wrong data controller, or a delivery page promising
+times no carrier agreed to, is actively harmful — it misleads customers and is
+unenforceable. An obvious blank is safer than confident fiction. Benny is in Norway, so
+Norwegian/EEA law governs, not the US:CA that WooCommerce is currently set to.
+
+**Verified, not assumed:** confirmed via statute lookup that Norway applies the EU 14-day
+withdrawal right through angrerettloven as an EEA state, rather than citing the EU
+Consumer Rights Directive directly.
+
+## D12 — Explicit consent checkbox at checkout, not implied consent
+
+**Decision:** set `checkout-terms-block {"checkbox":true}`.
+
+**Why:** Woo's block checkout defaults to implied consent ("by proceeding you agree…").
+GDPR expects a clear affirmative action, so the checkout now requires an unticked box to
+be ticked. Found by reading the rendered block, not by trusting the setting — the
+`woocommerce_terms_page_id` setting alone does **not** produce a checkbox on block checkout.
+
+## D13 — Policy text kept in the repo, not only in the database
+
+**Decision:** `content/policy-pages/*.html` is the source of truth.
+
+**Why:** WordPress pages live in the database, which the brief's source-retrievability
+requirement does not cover and which does not survive a host migration. Keeping the
+wording in Git means the legal text is reviewable, diffable and portable.
+
 ## D9 — page.php is mandatory, and index.php must use the_content()
 
 **Decision:** added `page.php`; made `index.php` use `the_content()` on singular views.

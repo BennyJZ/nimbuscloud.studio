@@ -68,6 +68,34 @@ commerce backend. **Not headless.** See `DECISIONS.md` for why.
 
 Test cart item was removed afterwards via the Store API, so the cart is empty.
 
+## Legal / policy pages (added 2026-10-01)
+
+Four pages published, written for **Norway/EEA** (GDPR + angrerettloven):
+
+| Page | ID | URL | Wired into |
+|---|---|---|---|
+| Privacy Policy | 43 | `/privacy-policy/` | Settings → Privacy (`page_for_privacy_policy`) |
+| Delivery | 44 | `/delivery/` | Footer menu |
+| Returns & Refunds | 45 | `/returns-refunds/` | Footer menu |
+| Terms & Conditions | 46 | `/terms-conditions/` | Woo → Advanced → Terms page |
+
+- Source of truth: `content/policy-pages/*.html` (version-controlled, not DB-only)
+- Nav menu **Legal** (id 1384) assigned to the `footer` location; `Primary Menu`
+  (1383) keeps the header
+- Checkout now shows an **explicit, unticked consent checkbox** linking both policies
+  (`checkout-terms-block {"checkbox":true}` — Woo's default is implied consent, which is
+  weaker than GDPR affirmative action wants)
+- WooCommerce's unused `refund_returns` stub page (id 9) was trashed to avoid two
+  competing returns policies
+- **21 `TO COMPLETE` markers** remain across the four pages: business identity, org.nr,
+  contact email, carrier names, delivery times and rates. Deliberately not invented.
+
+### Store settings that still need fixing before launch
+
+WooCommerce is configured as **country US:CA, currency USD**, with an empty store address
+and **no shipping zones**. For a Norwegian business this is wrong and affects tax,
+currency and which consumer law the policies should cite.
+
 ## Current blockers
 
 - **Prices are 0.00** — waiting on real prices from Benny. He explicitly rejected

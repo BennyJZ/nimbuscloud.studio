@@ -2,6 +2,15 @@
 
 ## Blocked on Benny
 
+- [ ] **Fill the 21 `TO COMPLETE` markers** in `content/policy-pages/` — business name,
+      org.nr, address, contact email, carriers, delivery times, shipping rates
+      (`grep -rn "TO COMPLETE" content/policy-pages/`)
+- [ ] **Fix store country/currency** — WooCommerce says `US:CA` / `USD`; should be Norway
+      and the currency you intend to sell in
+- [ ] **Configure shipping zones** — none exist, so the Delivery page cannot be completed
+- [ ] **Enable a payment gateway** — none enabled; the privacy policy must then name the
+      processor as a recipient
+
 - [ ] **Real prices** for all 3 products (currently 0.00)
 - [ ] **Product images** — main image + gallery per product
 - [ ] Decide whether to **launch the site** (currently "Coming Soon", so logged-out

@@ -1,0 +1,18 @@
+{
+  "privacy-policy": {
+    "id": 43,
+    "title": "Privacy Policy"
+  },
+  "delivery": {
+    "id": 44,
+    "title": "Delivery"
+  },
+  "returns-refunds": {
+    "id": 45,
+    "title": "Returns & Refunds"
+  },
+  "terms-conditions": {
+    "id": 46,
+    "title": "Terms & Conditions"
+  }
+}
