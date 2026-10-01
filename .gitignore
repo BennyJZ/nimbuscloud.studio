@@ -1,0 +1,28 @@
+# build output
+dist/
+
+# secrets - never commit
+.env
+.env.*
+*.key
+*.pem
+credentials*
+secrets*
+
+# database dumps (may contain customer/order data)
+*.sql
+*.sql.gz
+*.sqlite
+
+# dependencies / caches
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+
+# editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
